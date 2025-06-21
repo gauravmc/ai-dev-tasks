@@ -19,10 +19,28 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 
 1.  **Receive PRD Reference:** The user points the AI to a specific PRD file
 2.  **Analyze PRD:** The AI reads and analyzes the functional requirements, user stories, and other sections of the specified PRD.
-3.  **Phase 1: Generate Parent Tasks:** Based on the PRD analysis, create the file and generate the main, high-level tasks required to implement the feature. Use your judgement on how many high-level tasks to use. It's likely to be about 5. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level tasks based on the PRD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
+3.  **Phase 1: Generate Parent Tasks:** Based on the PRD analysis, create the file and generate the main, high-level tasks required to implement the feature. Order tasks UI-first:
+    - Start with user-visible changes (views, UI components)
+    - Then controller/routing changes
+    - Then business logic/models
+    - Finally infrastructure (only if proven necessary)
+    
+    **Parent Task Coherence (Vertical Slice Strategy):** Each parent task must:
+    - Leave the application in a working, coherent state when completed
+    - Not create UI that pretends to have backend functionality that doesn't exist
+    - Group tightly coupled changes together across all layers (UI + Controller + Service + Tests)
+    - Be shippable on its own without waiting for future tasks
+    - Implement features end-to-end rather than layer-by-layer when changes are tightly coupled
+    
+    Use your judgement on how many high-level tasks to use. It's likely to be about 5. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level tasks based on the PRD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
 4.  **Wait for Confirmation:** Pause and wait for the user to respond with "Go".
-5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down each parent task into smaller, actionable sub-tasks necessary to complete the parent task. Ensure sub-tasks logically follow from the parent task and cover the implementation details implied by the PRD.
-6.  **Identify Relevant Files:** Based on the tasks and PRD, identify potential files that will need to be created or modified. List these under the `Relevant Files` section, including corresponding test files if applicable.
+5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down each parent task into smaller, actionable sub-tasks necessary to complete the parent task. Follow these principles:
+    - Each sub-task should be a small, focused unit of work
+    - Sub-tasks within a parent can depend on each other (they're done sequentially)
+    - Don't create sub-tasks that depend on future parent tasks
+    - Start simple (e.g., "Add meta refresh") before complex (e.g., "Add Turbo Streams")
+    - Mark infrastructure tasks as "if needed" when appropriate
+6.  **Identify Relevant Files:** Based on the tasks and PRD, identify potential files that will need to be created or modified. List views first, then controllers, then models/services. List these under the `Relevant Files` section, including corresponding test files if applicable.
 7.  **Generate Final Output:** Combine the parent tasks, sub-tasks, relevant files, and notes into the final Markdown structure.
 8.  **Save Task List:** Save the generated document in the `/tasks/` directory with the filename `tasks-[prd-file-name].md`, where `[prd-file-name]` matches the base name of the input PRD file (e.g., if the input was `prd-user-profile-editing.md`, the output is `tasks-prd-user-profile-editing.md`).
 
@@ -33,17 +51,24 @@ The generated task list _must_ follow this structure:
 ```markdown
 ## Relevant Files
 
-- `path/to/potential/file1.ts` - Brief description of why this file is relevant (e.g., Contains the main component for this feature).
-- `path/to/file1.test.ts` - Unit tests for `file1.ts`.
-- `path/to/another/file.tsx` - Brief description (e.g., API route handler for data submission).
-- `path/to/another/file.test.tsx` - Unit tests for `another/file.tsx`.
-- `lib/utils/helpers.ts` - Brief description (e.g., Utility functions needed for calculations).
-- `lib/utils/helpers.test.ts` - Unit tests for `helpers.ts`.
+- `app/views/feature/page.html.erb` - Brief description (e.g., Main view template for the feature).
+- `app/controllers/feature_controller.rb` - Brief description (e.g., Controller handling feature requests).
+- `app/models/feature.rb` - Brief description (e.g., Model with business logic).
+- `test/controllers/feature_controller_test.rb` - Controller tests.
+- `test/models/feature_test.rb` - Model tests.
+- `test/system/feature_test.rb` - System/integration tests.
 
 ### Notes
 
-- Unit tests should typically be placed alongside the code files they are testing (e.g., `MyComponent.tsx` and `MyComponent.test.tsx` in the same directory).
-- Use `npx jest [optional/path/to/test/file]` to run tests. Running without a path executes all tests found by the Jest configuration.
+- Tasks should follow UI-first development: Start with what users see, then work backwards to infrastructure
+- Each parent task must leave the application in a coherent, working state when all its sub-tasks are complete
+- **Use Complete Vertical Slice strategy**: Parent tasks should group tightly coupled changes across all layers (UI + Controller + Service + Database + Tests)
+- Sub-tasks are small units of work that build toward completing the parent task
+- Prefer simple solutions (meta refresh) before complex ones (Turbo Streams)
+- Mark speculative infrastructure tasks as "if needed"
+- **Anti-pattern**: Don't create parent tasks that only touch one layer if other layers need updating too
+- For Rails projects: Tests go in the `test/` directory structure, not alongside source files
+- Use `bin/rails test` to run all tests, or `bin/rails test path/to/test_file.rb` for specific tests
 
 ## Tasks
 

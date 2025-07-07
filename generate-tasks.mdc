@@ -7,7 +7,7 @@ alwaysApply: false
 
 ## Goal
 
-To guide an AI assistant in creating a detailed, step-by-step task list in Markdown format based on an existing Product Requirements Document (PRD). The task list should guide a developer through implementation.
+To guide an AI assistant in creating a detailed, step-by-step task list in Markdown format based on an existing Product Requirements Document (PRD). The task list should guide a developer through implementation **following the Skateboard-First Philosophy.**
 
 ## Output
 
@@ -17,32 +17,25 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 
 ## Process
 
-1.  **Receive PRD Reference:** The user points the AI to a specific PRD file
-2.  **Analyze PRD:** The AI reads and analyzes the functional requirements, user stories, and other sections of the specified PRD.
-3.  **Phase 1: Generate Parent Tasks:** Based on the PRD analysis, create the file and generate the main, high-level tasks required to implement the feature. Order tasks UI-first:
-    - Start with user-visible changes (views, UI components)
-    - Then controller/routing changes
-    - Then business logic/models
-    - Finally infrastructure (only if proven necessary)
-    
-    **Parent Task Coherence (Vertical Slice Strategy):** Each parent task must:
-    - Leave the application in a working, coherent state when completed
-    - Not create UI that pretends to have backend functionality that doesn't exist
-    - Group tightly coupled changes together across all layers (UI + Controller + Service + Tests)
-    - Be shippable on its own without waiting for future tasks
-    - Implement features end-to-end rather than layer-by-layer when changes are tightly coupled
-    
-    Use your judgement on how many high-level tasks to use. It's likely to be about 5. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level tasks based on the PRD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
+1.  **Receive PRD Reference:** The user points the AI to a specific PRD file.
+2.  **Analyze PRD:** The AI reads the PRD, paying close attention to the phased requirements (**Skateboard, Scooter, etc.**).
+3.  **Phase 1: Generate Parent Tasks (The Roadmap from Skateboard to Car):**
+    - Based on the PRD analysis, create the main parent tasks.
+    - **The first parent task MUST be "Build the Skateboard".**
+    - Subsequent parent tasks should be other complete "vehicles" (e.g., "Upgrade to Scooter," "Build the Bicycle").
+    - **Parent Task Coherence (The Complete Vehicle Test):** Each parent task must deliver a complete, shippable product (a vertical slice). It is not a component (a horizontal slice). A parent task is never just "Create the UI" or "Build the API endpoint". It is "Build a feature that uses a UI and an API endpoint to deliver value."
+    - **Parent Task Checklist (before presenting to user):**
+      - [ ] Can a user actually USE this when complete?
+      - [ ] Does it work end-to-end (UI → Backend → Database)?
+      - [ ] Could you demo this to someone?
+      - [ ] Is it shippable (even if simple)?
+      - If any answer is "no", it's a wheel, not a skateboard.
+    - Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level roadmap, starting with the Skateboard. Ready to generate the sub-tasks for the Skateboard? Respond with 'Go' to proceed."
 4.  **Wait for Confirmation:** Pause and wait for the user to respond with "Go".
-5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down each parent task into smaller, actionable sub-tasks necessary to complete the parent task. Follow these principles:
-    - Each sub-task should be a small, focused unit of work
-    - Sub-tasks within a parent can depend on each other (they're done sequentially)
-    - Don't create sub-tasks that depend on future parent tasks
-    - Start simple (e.g., "Add meta refresh") before complex (e.g., "Add Turbo Streams")
-    - Mark infrastructure tasks as "if needed" when appropriate
-6.  **Identify Relevant Files:** Based on the tasks and PRD, identify potential files that will need to be created or modified. List views first, then controllers, then models/services. List these under the `Relevant Files` section, including corresponding test files if applicable.
+5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down **only the first parent task (the Skateboard)** into the smaller, actionable sub-tasks needed to build it.
+6.  **Identify Relevant Files:** Based on the tasks and PRD, identify potential files that will need to be created or modified. List views first, then controllers, then models/services.
 7.  **Generate Final Output:** Combine the parent tasks, sub-tasks, relevant files, and notes into the final Markdown structure.
-8.  **Save Task List:** Save the generated document in the `/tasks/` directory with the filename `tasks-[prd-file-name].md`, where `[prd-file-name]` matches the base name of the input PRD file (e.g., if the input was `prd-user-profile-editing.md`, the output is `tasks-prd-user-profile-editing.md`).
+8.  **Save Task List:** Save the generated document in the `/tasks/` directory with the specified filename.
 
 ## Output Format
 
@@ -60,25 +53,21 @@ The generated task list _must_ follow this structure:
 
 ### Notes
 
-- Tasks should follow UI-first development: Start with what users see, then work backwards to infrastructure
-- Each parent task must leave the application in a coherent, working state when all its sub-tasks are complete
-- **Use Complete Vertical Slice strategy**: Parent tasks should group tightly coupled changes across all layers (UI + Controller + Service + Database + Tests)
-- Sub-tasks are small units of work that build toward completing the parent task
-- Prefer simple solutions (meta refresh) before complex ones (Turbo Streams)
-- Mark speculative infrastructure tasks as "if needed"
-- **Anti-pattern**: Don't create parent tasks that only touch one layer if other layers need updating too
-- For Rails projects: Tests go in the `test/` directory structure, not alongside source files
-- Use `bin/rails test` to run all tests, or `bin/rails test path/to/test_file.rb` for specific tests
+- **This plan follows the Skateboard-First Philosophy.**
+- Each parent task (e.g., 1.0) is a complete, shippable "vehicle" (like a Skateboard or Bicycle).
+- A parent task is a **Complete Vertical Slice**. It must not be a single component like a "wheel".
+- **Anti-pattern**: A parent task that only touches the UI layer without making it functional.
+- Sub-tasks are the small, sequential steps to build that vehicle.
+- Prefer simple solutions (meta refresh) before complex ones (Turbo Streams).
 
 ## Tasks
 
-- [ ] 1.0 Parent Task Title
+- [ ] 1.0 Parent Task Title (e.g., Build the Skateboard: Basic Image Generation with Page Refresh)
   - [ ] 1.1 [Sub-task description 1.1]
   - [ ] 1.2 [Sub-task description 1.2]
-- [ ] 2.0 Parent Task Title
+- [ ] 2.0 Parent Task Title (e.g., Upgrade to Scooter: Enhance with Turbo Streams for a Smoother Experience)
   - [ ] 2.1 [Sub-task description 2.1]
-- [ ] 3.0 Parent Task Title (may not require sub-tasks if purely structural or configuration)
-```
+- [ ] 3.0 Parent Task Title (e.g., Add a Sidecar: Include Error Handling and Notifications)
 
 ## Interaction Model
 

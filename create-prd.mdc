@@ -1,6 +1,6 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
 # Rule: Generating a Product Requirements Document (PRD)
@@ -12,7 +12,7 @@ To guide an AI assistant in creating a detailed Product Requirements Document (P
 ## Process
 
 1.  **Receive Initial Prompt:** The user provides a brief description or request for a new feature or functionality.
-2.  **Ask Clarifying Questions:** Before writing the PRD, the AI *must* ask clarifying questions to gather sufficient detail. The goal is to understand the "what" and "why" of the feature, not necessarily the "how" (which the developer will figure out).
+2.  **Ask Clarifying Questions:** Before writing the PRD, the AI *must* ask clarifying questions to gather sufficient detail.
 3.  **Generate PRD:** Based on the initial prompt and the user's answers to the clarifying questions, generate a PRD using the structure outlined below.
 4.  **Save PRD:** Save the generated document as `prd-[feature-name].md` inside the `/tasks` directory.
 
@@ -20,20 +20,28 @@ To guide an AI assistant in creating a detailed Product Requirements Document (P
 
 Ask questions to understand:
 - **Problem & Goal**: What problem does this solve? What's the main objective?
-- **User Journey**: What will users see and do? Walk through the experience.
-- **Scope**: What should this feature NOT do? What's the simplest valuable version?
-- **Success Criteria**: How will we know it's working correctly?
-- **Edge Cases**: Any special conditions or errors to handle?
+- **The Skateboard Version:** What is the absolute simplest, end-to-end version of this feature that would solve the user's core problem and deliver real value? This is our "Skateboard."
+- **User Journey**: What will users see and do when using the "Skateboard"? Walk through the experience.
+- **Future Versions (Scooter, Bicycle):** After the Skateboard is built, what would the next logical improvement be?
+- **Scope**: What should the "Skateboard" version NOT do?
+- **Success Criteria**: How will we know the "Skateboard" is working correctly?
+- **Edge Cases**: Any special conditions or errors to handle for the "Skateboard"?
 
 ## PRD Structure
 
-1.  **Introduction/Overview:** Brief description of the feature, the problem it solves, and primary goals
-2.  **User Stories:** User narratives in the format: "As a [user], I want to [action] so that [benefit]"
-3.  **Functional Requirements:** Numbered list of specific functionalities (FR1, FR2, etc.)
-    - Focus on user-visible behavior first
-    - Then technical requirements
-    - Use clear, actionable language
-4.  **Non-Goals (Out of Scope):** What this feature will NOT include (manage scope, avoid complexity)
+1.  **Introduction/Overview:** Brief description of the feature, the problem it solves, and primary goals.
+    - **MUST include a bolded statement:** "**The Skateboard Version:** [One sentence describing the simplest complete solution]"
+    - This Skateboard statement should be the most prominent part of the overview
+2.  **User Stories:**
+    -   **Start with the Skateboard User Story:** "As a [user], I want to [action in simplest way] so that [core benefit]."
+    -   Then add stories for future versions if needed.
+3.  **Functional Requirements:**
+    -   **Phase 1: The Skateboard (MVP).** Group all requirements for the first, simplest, shippable version here.
+        - FR1: [Description]
+        - FR2: [Description]
+    -   **Phase 2: The Scooter (V2 Enhancement).** Group requirements for the next iteration here.
+        - FR3: [Description]
+4.  **Non-Goals (Out of Scope for the Skateboard):** What this feature will NOT include in its first version.
 5.  **Design Considerations (Optional):** UI/UX notes, mockups, or component guidelines
 6.  **Technical Considerations (Optional):** Known constraints or implementation suggestions
 7.  **Success Metrics:** How success will be measured
@@ -41,7 +49,7 @@ Ask questions to understand:
 
 ## Output
 
-*   **Format:** Markdown (`.md`)
-*   **Location:** `/tasks/`
-*   **Filename:** `prd-[feature-name].md`
-*   **Audience:** Junior developer (be explicit and avoid jargon)
+* **Format:** Markdown (`.md`)
+* **Location:** `/tasks/`
+* **Filename:** `prd-[feature-name].md`
+* **Audience:** Junior developer (be explicit and avoid jargon)

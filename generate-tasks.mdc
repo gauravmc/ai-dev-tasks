@@ -17,16 +17,21 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 3.  **Phase 1: Generate Parent Tasks:**
     - Based on the PRD analysis, create the main parent tasks.
     - **IMPORTANT: The Skateboard PHASE may require multiple parent tasks to complete.**
-    - For example, a "Skateboard: Basic Feature" might need:
-      - Task 1.0: Build Prerequisites (e.g., authentication)
-      - Task 2.0: Implement Core Feature
+    - **Parent Task Sizing Rule:** Each parent task should have 5-6 sub-tasks maximum. If you find yourself with more, split it into multiple parent tasks.
+    - For example, a "Skateboard: Basic Favorites" might need:
+      - Task 1.0: User Authentication (5 sub-tasks)
+      - Task 2.0: Connect Users to Images (6 sub-tasks)
+      - Task 3.0: Favorites Data Model (5 sub-tasks)
+      - Task 4.0: Build Favorites UI (5 sub-tasks)
+      - Task 5.0: Create Favorites Page (5 sub-tasks)
     - **Parent Task Coherence (The Complete Slice Test):** Each parent task must deliver a complete, shippable slice (a vertical slice). It is not a component (a horizontal slice). A parent task is never just "Create the UI" or "Build the API endpoint". It must work end-to-end.
     - **Parent Task Checklist (before presenting to user):**
       - [ ] Can a user actually USE this when complete?
       - [ ] Does it work end-to-end (UI → Backend → Database)?
       - [ ] Could you demo this to someone?
       - [ ] Is it independently valuable (even if part of a larger phase)?
-      - If any answer is "no", it's incomplete.
+      - [ ] Does it have 5-6 sub-tasks or fewer?
+      - If any answer is "no", reconsider the task breakdown.
     - Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level parent tasks. The first [X] tasks form the Skateboard phase. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
 4.  **Wait for Confirmation:** Pause and wait for the user to respond with "Go".
 5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down **all parent tasks in the Skateboard phase** into their smaller, actionable sub-tasks.
@@ -52,26 +57,58 @@ The generated task list _must_ follow this structure:
 - **This plan follows the Skateboard-First Philosophy.**
 - The Skateboard-to-Car analogy defines PHASES, not individual tasks.
 - Each PHASE may require multiple parent tasks to complete.
+- **Parent Task Sizing:** Keep each parent task to 5-6 sub-tasks maximum.
 - Each parent task is a **Complete Vertical Slice** that works end-to-end.
-- **Anti-pattern**: A parent task that only builds one layer (just UI or just backend).
+- **Anti-patterns to avoid:**
+  - A parent task that only builds one layer (just UI or just backend)
+  - A parent task with 20+ sub-tasks (split it into multiple focused tasks)
 - Sub-tasks are the small, sequential steps to build each parent task.
 - Prefer simple solutions (meta refresh) before complex ones (Turbo Streams).
 
 ## Tasks
 
 ### Skateboard Phase
-- [ ] 1.0 Parent Task Title (e.g., Build Core Foundation)
+- [ ] 1.0 Parent Task Title (e.g., Add User Authentication)
   - [ ] 1.1 [Sub-task description 1.1]
   - [ ] 1.2 [Sub-task description 1.2]
-- [ ] 2.0 Parent Task Title (e.g., Implement Basic Feature)
+  - [ ] 1.3 [Sub-task description 1.3]
+  - [ ] 1.4 [Sub-task description 1.4]
+  - [ ] 1.5 [Sub-task description 1.5]
+- [ ] 2.0 Parent Task Title (e.g., Create Data Model)
   - [ ] 2.1 [Sub-task description 2.1]
   - [ ] 2.2 [Sub-task description 2.2]
+  - [ ] 2.3 [Sub-task description 2.3]
+  - [ ] 2.4 [Sub-task description 2.4]
+  - [ ] 2.5 [Sub-task description 2.5]
+- [ ] 3.0 Parent Task Title (e.g., Build User Interface)
+  - [ ] 3.1 [Sub-task description 3.1]
+  - [ ] 3.2 [Sub-task description 3.2]
+  - [ ] 3.3 [Sub-task description 3.3]
+  - [ ] 3.4 [Sub-task description 3.4]
 
 ### Scooter Phase  
-- [ ] 3.0 Parent Task Title (e.g., Add Enhanced Functionality)
-  - [ ] 3.1 [Sub-task description 3.1]
-- [ ] 4.0 Parent Task Title (e.g., Improve User Experience)
+- [ ] 4.0 Parent Task Title (e.g., Add Advanced Features)
   - [ ] 4.1 [Sub-task description 4.1]
+  - [ ] 4.2 [Sub-task description 4.2]
+  - [ ] 4.3 [Sub-task description 4.3]
+
+## Task Sizing Best Practices
+
+### Signs a Parent Task is Too Large
+- More than 6-8 sub-tasks
+- Sub-tasks span multiple unrelated areas
+- Would take more than a day to complete
+- Mixes different concerns (e.g., auth + data model + UI in one task)
+
+### How to Split Large Tasks
+If you have a task like "Implement Favorites System" with 20 sub-tasks, split it:
+- Task 1: Set up data relationships
+- Task 2: Create the data model
+- Task 3: Build the API/controller
+- Task 4: Create the UI components
+- Task 5: Build the favorites page
+
+Each smaller task is still complete and valuable, but more manageable.
 
 ## Interaction Model
 

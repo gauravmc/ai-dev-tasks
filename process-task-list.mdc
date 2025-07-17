@@ -1,8 +1,3 @@
----
-description: 
-globs: 
-alwaysApply: false
----
 # Task List Management
 
 Guidelines for working through task lists to implement PRDs
@@ -17,16 +12,16 @@ Guidelines for working through task lists to implement PRDs
 ### Completing Parent Tasks
 When ALL sub-tasks under a parent task are marked `[x]`:
 
-1.  **Final Review (The "Complete Vehicle" Test)**:
-    -   Ask yourself: "Does this completed parent task represent a full 'vehicle' like a Skateboard or a Scooter?"
-    -   Confirm that the feature is a complete, working, end-to-end slice of value, just as we planned.
+1.  **Final Review (The "Complete Slice" Test)**:
+    -   Ask yourself: "Does this completed parent task deliver end-to-end value?"
+    -   Confirm that the feature is a complete, working vertical slice, just as we planned.
 
-2.  **Run tests**: Execute the full test suite (`bin/rails test`, etc.)
+2.  **Run tests**: Execute the full test suite (e.g., `bin/rails test`, `npm test`, `pytest`)
 3.  **Fix any failures**: If tests fail, fix them before proceeding
 4.  **Clean up**: Remove temporary files and debug code
 5.  **Commit changes**: Use a descriptive multi-line commit message that reflects the value delivered:
     ```
-    git commit -m "feat: Complete Skateboard for payment processing" -m "- Implements the simplest end-to-end payment validation" -m "- Adds basic unit and system tests for the happy path" -m "- Displays a simple success or failure message on the UI" -m "Completes parent task 1.0 in prd-payment-processing"
+    git commit -m "feat: Complete user authentication system" -m "- Implements secure login/logout functionality" -m "- Adds session management and password hashing" -m "- Creates login and signup pages with validation" -m "Completes parent task 1.0 from task list"
     ```
 6.  **Mark parent complete**: Change parent task `[ ]` to `[x]`
 

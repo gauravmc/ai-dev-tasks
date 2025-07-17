@@ -1,8 +1,3 @@
----
-description: 
-globs: 
-alwaysApply: false
----
 # Rule: Generating a Product Requirements Document (PRD)
 
 ## Goal
@@ -32,20 +27,37 @@ Ask questions to understand:
 1.  **Introduction/Overview:** Brief description of the feature, the problem it solves, and primary goals.
     - **MUST include a bolded statement:** "**The Skateboard Version:** [One sentence describing the simplest complete solution]"
     - This Skateboard statement should be the most prominent part of the overview
-2.  **User Stories:**
-    -   **Start with the Skateboard User Story:** "As a [user], I want to [action in simplest way] so that [core benefit]."
-    -   Then add stories for future versions if needed.
-3.  **Functional Requirements:**
+    
+2.  **Implementation Phases:** Clear breakdown of how the feature evolves:
+    - **Phase 1: The Skateboard** - Describe the MVP (may require multiple tasks to build)
+    - **Phase 2: The Scooter** - Describe the enhanced version
+    - **Phase 3: The Bicycle** - Describe further improvements (if applicable)
+    - Note: Each phase represents a complete, shippable product version
+
+3.  **Goals:** List the objectives for each phase
+
+4.  **User Stories:**
+    -   **Start with Skateboard User Stories:** All stories needed for the MVP
+    -   **Then Scooter User Stories:** Additional stories for phase 2
+    -   **Then Bicycle User Stories:** Further stories for phase 3
+
+5.  **Functional Requirements:**
     -   **Phase 1: The Skateboard (MVP).** Group all requirements for the first, simplest, shippable version here.
         - FR1: [Description]
         - FR2: [Description]
+        - Note: These may be implemented across multiple parent tasks
     -   **Phase 2: The Scooter (V2 Enhancement).** Group requirements for the next iteration here.
         - FR3: [Description]
-4.  **Non-Goals (Out of Scope for the Skateboard):** What this feature will NOT include in its first version.
-5.  **Design Considerations (Optional):** UI/UX notes, mockups, or component guidelines
-6.  **Technical Considerations (Optional):** Known constraints or implementation suggestions
-7.  **Success Metrics:** How success will be measured
-8.  **Open Questions:** Remaining areas needing clarification
+        
+6.  **Non-Goals (Out of Scope for the Skateboard):** What this feature will NOT include in its first version.
+
+7.  **Design Considerations (Optional):** UI/UX notes, mockups, or component guidelines
+
+8.  **Technical Considerations (Optional):** Known constraints or implementation suggestions
+
+9.  **Success Metrics:** How success will be measured
+
+10.  **Open Questions:** Remaining areas needing clarification
 
 ## Output
 
